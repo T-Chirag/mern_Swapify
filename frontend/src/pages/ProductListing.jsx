@@ -13,7 +13,7 @@ function ProductListing() {
       title: "Wireless Headphones",
       name: "Wireless Headphones",
       category: "Gadgets",
-      image_link: "https://via.placeholder.com/150",
+      image_link: "https://images.unsplash.com/photo-1648447272271-1c2292144c50?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fHdpcmVsZXNzJTIwZWFycGhvbmVzfGVufDB8fDB8fHww  ",
       description: "High-quality wireless headphones with noise cancellation.",
       original_price: 150,
     },
