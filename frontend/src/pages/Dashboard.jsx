@@ -5,21 +5,21 @@ const Dashboard = () => {
   const mockProducts = [
     {
       _id: "1",
-      name: "Product 1",
-      description: "Description for product 1",
-      image: "https://via.placeholder.com/150",
+      name: "Vintage Watch",
+      description: "",//description of vintage watch
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8kKu-TZsxWaDhvqJQqpU00h_3a3pESh8Thw&s",
     },
     {
       _id: "2",
       name: "Product 2",
       description: "Description for product 2",
-      image: "https://via.placeholder.com/150",
+      image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ8Ar08Ggo5OIaLAa2TIvLwys_ug_1F939xt2GHXluObjU5aE7H8EgD0E4Syo32LjXwt3wSlvvmLCwFJs0Jpe9Mh1rApWZfh0DOATrPe8ys9H7aPl3fvyBf",
     },
     {
       _id: "3",
       name: "Product 3",
       description: "Description for product 3",
-      image: "https://via.placeholder.com/150",
+      image: "https://m.media-amazon.com/images/I/A1TJq1sXu1L.jpg",
     },
   ];
 
@@ -73,7 +73,7 @@ const Dashboard = () => {
       <div className="mb-6 w-96 h-3/4 flex flex-col justify-center items-center">
         <h1 className="text-2xl m-7 font-bold">Your Profile</h1>
         <img
-          src="https://via.placeholder.com/150"
+          src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"
           alt="Profile"
           className="w-24 h-24 rounded-full border-2 border-black mt-2"
         />

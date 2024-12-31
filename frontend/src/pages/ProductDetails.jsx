@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import { ProductArray } from "../assets/data";
-const { addToCart } = useCart();
+
 
 const ProductDetails = () => {
   const { id } = useParams(); // Extract the product ID from the URL
@@ -19,12 +19,12 @@ const ProductDetails = () => {
   }
 
   const handleAddToCart = () => {
-    addToCart();
     alert(`${product.title} has been added to your cart!`);
   };
 
   const handleBuyNow = () => {
-    alert(`Proceeding to purchase ${product.title}!`);
+      (window.location.href = "/web-chat-app/ChatApp.html")
+    
   };
 
   return (
@@ -62,10 +62,12 @@ const ProductDetails = () => {
               Add to Cart
             </button>
             <button
-              onClick={handleBuyNow}
+              onClick={() =>
+              (window.location.href = "/web-chat-app/ChatApp.html")
+            }
               className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
             >
-              Buy Now
+              Chat With User
             </button>
           </div>
         </div>
