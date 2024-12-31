@@ -2,17 +2,27 @@ const mongoose=require("mongoose")
 const {Schema}=mongoose
 
 const productSchema= new Schema({
+
+    _id:{
+        type:Number,
+        required:true
+    },
+
     title:{
         type:String,
         required:true
     },
+    name:{
+        type:String,
+
+    },
     description:{
         type:String,
-        required:true
+        
     },
-    price:{
+    original_price:{
         type:Number,
-        required:true
+        
     },
     category:{
         type:Schema.Types.ObjectId,

@@ -90,7 +90,7 @@ function App() {
             <Route path="/products/:id" element={<ProductDetails />} />
             <Route path="/dashboard" element={   <Dashboard />} />
             <Route path="/cart" element={<CartPage />} />
-            <Route path="*" element={<NotFound />} />
+            {/* <Route path="*" element={<NotFound />} /> */}
           </Routes>
         </main>
         <Footer />

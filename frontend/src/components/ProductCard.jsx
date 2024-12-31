@@ -18,7 +18,9 @@ const ProductCard = ({ product }) => {
         <h3 className="text-lg font-semibold text-gray-800 truncate">
           {product.name}
         </h3>
-        <p className="text-gray-500 text-sm mt-1 truncate">{product.description}</p>
+        <p className="text-gray-500 text-sm mt-1 truncate">
+          {product.description}
+        </p>
 
         <div className="flex items-center justify-between mt-4">
           <div>
@@ -31,6 +33,15 @@ const ProductCard = ({ product }) => {
             className="bg-blue-600 text-white px-4 py-1 text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
           >
             Add to Cart
+          </button>
+
+          <button
+            onClick={() =>
+              (window.location.href = "/web-chat-app/ChatApp.html")
+            }
+            className="bg-blue-600 text-white px-2 py-1 text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
+          >
+            Chat with lister
           </button>
         </div>
       </div>
