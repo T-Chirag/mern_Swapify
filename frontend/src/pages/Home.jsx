@@ -4,14 +4,14 @@ import websiteLogo from "/src/assets/Swapify-logo.png";
 import Carousel from "../components/Carousel";
 import Recommendations from "../components/Recomendations";
 import Footer from "../components/Footer";
+import { ProductArray } from "../assets/data";
 
 function Home() {
   const images = [
-    "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://media.istockphoto.com/id/1303978937/photo/white-sneaker-on-a-blue-gradient-background-mens-fashion-sport-shoe-sneakers-lifestyle.webp?s=2048x2048&w=is&k=20&c=iDwkE046emMy4M5pz_fN_KpSotExIM2SNz7C1YbJ0IM=",
     "https://images.pexels.com/photos/1598505/pexels-photo-1598505.jpeg?auto=compress&cs=tinysrgb&w=600",
-    "https://images.pexels.com/photos/19090/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-    "https://via.placeholder.com/1200x500/FF00FF/FFFFFF?text=Image+5",
+    "https://images.pexels.com/photos/1756086/pexels-photo-1756086.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/18259150/pexels-photo-18259150/free-photo-of-smartwatch-on-ground.jpeg?auto=compress&cs=tinysrgb&w=600",
+    "https://images.pexels.com/photos/3731256/pexels-photo-3731256.jpeg?auto=compress&cs=tinysrgb&w=600"
   ];
 
   return (

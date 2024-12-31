@@ -1,11 +1,19 @@
 import React from "react";
-import { useCart } from "../context/CartContext"; // Import the custom hook
+import { useCart } from "../context/CartContext";// Import the custom hook
+import { useNavigate } from "react-router-dom"; 
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useCart(); // Get the addItemToCart function from context
+  const navigate = useNavigate(); // Initialize the useNavigate hook
 
+  // Function to handle navigation on card click
+  const handleCardClick = (id) => {
+    navigate(`/products/${id}`); // Navigate to the ProductDetails page
+  };
   return (
-    <div className="relative bg-white border rounded-lg shadow-md overflow-hidden">
+    <div className="relative bg-white border rounded-lg shadow-md overflow-hidden"
+    onClick={() => handleCardClick(product._id)} // Call the function on card click
+    >
       <div className="h-96 bg-gray-100 flex justify-center items-center overflow-hidden">
         <img
           src={product.image_link} // Fixed the image link key

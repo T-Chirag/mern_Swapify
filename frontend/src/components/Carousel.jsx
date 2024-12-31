@@ -34,7 +34,7 @@ function Carousel({ images, height }) {
       
       {/* Image Slider */}
       <div
-        className="flex transition-transform duration-500 ease-in-out"
+        className="flex transition-transform duration-500 ease-in-out h-full w-80 "
         style={{
           transform: `translateX(-${currentIndex * 100}vw)`, // Slide one image at a time
         }}
