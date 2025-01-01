@@ -21,7 +21,7 @@ function ProductListing() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get("http://localhost:8080/products/");
-        console.log("response:", response);
+        // console.log("response:", response);
         setProducts(response.data);
         // console.log("products:", products);
       } catch (error) {

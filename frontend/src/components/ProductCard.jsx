@@ -1,35 +1,25 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
 import axios from "axios";
+const { getUserID } = require("../../../backend/controllers/Auth.js");  // Import the getUserID function from the auth controller
 
+
+let User_ID = getUserID();
 const ProductCard = ({ product }) => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
-  let userId;
-
-  // Decode token to get user ID
-  try {
-    const token = localStorage.getItem("token");
-    console.log("token"+token);
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      userId = decodedToken._id;
-    } else {
-      console.log("No token found. User may not be logged in.");
-    }
-  } catch (error) {
-    console.error("Error decoding token:", error);
-  }
 
   // Add product to cart
-  const addToCart = async (userId, productId) => {
+  const addToCart = async (productId) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/cart/add",
-        { userId, productId },
+        { user:User_ID , product:productId },
         {
-          withCredentials: true,
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          withCredentials: false,
         }
       );
       console.log("Response:", response.data);
@@ -70,7 +60,7 @@ const ProductCard = ({ product }) => {
             </span>
           </div>
           <button
-            onClick={() => addToCart(userId, product._id)} // Add item to cart
+            onClick={() => addToCart(product._id)} // Only send productId
             className="bg-blue-600 text-white px-4 py-1 text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
           >
             Add to Cart

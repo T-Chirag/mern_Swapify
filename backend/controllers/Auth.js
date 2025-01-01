@@ -6,6 +6,21 @@ const Otp = require("../models/OTP");
 const { sanitizeUser } = require("../utils/SanitizeUser");
 const { generateToken } = require("../utils/GenerateToken");
 const PasswordResetToken = require("../models/PasswordResetToken");
+// const { User_ID } = require("../database/user_id");
+// const Userobj = require("../database/user_id.js")
+
+let User_ID = null; // Initialize as null or some default value
+
+// Function to set the User ID
+exports.setUserID = (id) => {
+  User_ID = id;
+};
+
+// Function to get the current User ID
+exports.getUserID = () => User_ID;
+
+
+
 
 exports.signup=async(req,res)=>{    
     try {
@@ -59,10 +74,19 @@ exports.login=async(req,res)=>{
         if(existingUser && (await bcrypt.compare(req.body.password,existingUser.password))){
 
             // getting secure user info
-            const secureInfo=sanitizeUser(existingUser)
+            setUserID(existingUser._id);
 
+            
+            console.log("Userid="+User_ID);
+            
+            const secureInfo=sanitizeUser(existingUser)
+            
+           
             // generating jwt token
             const token=generateToken(secureInfo)
+
+            // // Store the token in localStorage
+            // localStorage.setItem('token', token); // Replace `response.data.token` with your actual token
 
             // sending jwt token in the response cookies
             res.cookie('token',token,{
@@ -81,6 +105,8 @@ exports.login=async(req,res)=>{
         res.status(500).json({message:'Some error occured while logging in, please try again later'})
     }
 }
+
+
 
 exports.verifyOtp=async(req,res)=>{
     try {

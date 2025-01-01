@@ -71,7 +71,7 @@ exports.getAll = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-      console.log("results = "+results);
+      // console.log("results = "+results);
 
     // Set custom headers
     res.set("X-Total-Count", totalDocs);
