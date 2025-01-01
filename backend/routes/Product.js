@@ -5,6 +5,7 @@ const router=express.Router()
 router
     .post("/",productController.create)
     .get("/",productController.getAll)
+    .get("lister/:id",productController.getByLister)
     .get("/:id",productController.getById)
     .patch("/:id",productController.updateById)
     .patch("/undelete/:id",productController.undeleteById)

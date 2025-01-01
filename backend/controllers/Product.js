@@ -1,4 +1,4 @@
-const Product = require("../models/Product");
+Product = require("../models/Product.js");
 
 // Create a new product
 exports.create = async (req, res) => {
@@ -12,13 +12,32 @@ exports.create = async (req, res) => {
   }
 };
 
+//get all products listed by a lister
+exports.getByLister = async (req, res) => {
+  try {
+    const { lister } = req.params;
+    const products = await Product.find({ lister });
+    if (!products) {
+      return res.status(404).json({ message: "No products found." });
+    }
+    res.status(200).json(products);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    res.status(500).json({ message: "Error fetching products. Please try again later." });
+  }
+};
+
+
+    
+
+
 // Get all products with filters, sorting, and pagination
 exports.getAll = async (req, res) => {
   try {
     const filter = {};
     const sort = {};
     let skip = 0;
-    let limit = 10; // Default page size
+    let limit = 50; // Default page size
 
     // Apply filters
     if (req.query.brand) {
@@ -50,8 +69,7 @@ exports.getAll = async (req, res) => {
     const results = await Product.find(filter)
       .sort(sort)
       .skip(skip)
-      .limit(limit)
-      .populate("brand");
+      .limit(limit);
 
       console.log("results = "+results);
 
@@ -68,8 +86,7 @@ exports.getAll = async (req, res) => {
 exports.getById = async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findById(id).populate("brand").populate("category");
-
+    const product = await Product.findById(id).populate("category");
     if (!product) {
       return res.status(404).json({ message: "Product not found." });
     }
@@ -106,8 +123,7 @@ exports.undeleteById = async (req, res) => {
       id,
       { isDeleted: false },
       { new: true }
-    ).populate("brand");
-
+    );
     if (!restored) {
       return res.status(404).json({ message: "Product not found." });
     }
@@ -127,7 +143,7 @@ exports.deleteById = async (req, res) => {
       id,
       { isDeleted: true },
       { new: true }
-    ).populate("brand");
+    );
 
     if (!deleted) {
       return res.status(404).json({ message: "Product not found." });

@@ -2,27 +2,49 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import Card from "../components/ProductCard";
 import SearchBar from "../components/SearchBar";
+import axios from "axios";
 import { ProductArray } from "../assets/data.js";
-import { useCart } from "../context/CartContext";
+
 
 function ProductListing() {
-  const { addToCart } = useCart();
-  const [products, setProducts] = useState(ProductArray);
+  
+  const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]); 
   const [searchQuery, setSearchQuery] = useState(""); 
   const [filterPrice, setFilterPrice] = useState(""); 
 
   const [searchParams] = useSearchParams();
 
+  // get products from the backend
   useEffect(() => {
-    let updatedProducts = products;
+    // Fetch products from the backend
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/products/");
+        console.log("response:", response);
+        setProducts(response.data);
+        // console.log("products:", products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
+    fetchProducts();
+  }, []);
+
+
+  useEffect(() => {
+    console.log("products:", products);
+    let updatedProducts = products;
     const category = searchParams.get("category");
     if (category) {
       updatedProducts = updatedProducts.filter(
-        (product) => product.category.toLowerCase() === category.toLowerCase()
+        (product) =>
+          product.category &&
+          product.category.toLowerCase() === category.toLowerCase()
       );
     }
+    
 
     if (searchQuery) {
       updatedProducts = updatedProducts.filter((product) =>

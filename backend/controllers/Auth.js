@@ -30,6 +30,10 @@ exports.signup=async(req,res)=>{
         // generating jwt token
         const token=generateToken(secureInfo)
 
+        // Store the token in localStorage
+        localStorage.setItem('token', token); // Replace `response.data.token` with your actual token
+
+
         // sending jwt token in the response cookies
         res.cookie('token',token,{
             sameSite:process.env.PRODUCTION==='true'?"None":'Lax',
@@ -234,12 +238,47 @@ exports.resetPassword=async(req,res)=>{
 
 exports.logout=async(req,res)=>{
     try {
+
+        try {
+            // Extract the token from cookies or headers
+            const token = req.cookies.token; // Assuming you're storing the token in cookies
+            if (!token) {
+                return res.status(401).json({ message: 'No token provided. User not logged in.' });
+            }
+    
+            // Verify and decode the token
+            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const userId = decoded._id; // Adjust based on your token's payload structure
+    
+            // Fetch user details from the database
+            const user = await User.findById(userId).select('-password'); // Avoid fetching sensitive fields like password
+            if (!user) {
+                return res.status(404).json({ message: 'User not found.' });
+            }
+    
+            // Log user details to the console
+            console.log('Logged-in User Details:', {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role, // Assuming you have a 'role' field in your user model
+            });
+    
+            // Respond with user details if needed
+            res.status(200).json({ message: 'User logged in.', user });
+        } catch (error) {
+            console.error('Error logging user details:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+
         res.cookie('token',{
             maxAge:0,
             sameSite:process.env.PRODUCTION==='true'?"None":'Lax',
             httpOnly:true,
             secure:process.env.PRODUCTION==='true'?true:false
         })
+        localStorage.removeItem('token');
+
         res.status(200).json({message:'Logout successful'})
     } catch (error) {
         console.log(error);

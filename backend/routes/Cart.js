@@ -3,7 +3,7 @@ const cartController=require('../controllers/Cart')
 const router=express.Router()
 
 router
-    .post("/",cartController.create)
+    .post("/add",cartController.create)
     .get("/user/:id",cartController.getByUserId)
     .patch("/:id",cartController.updateById)
     .delete("/:id",cartController.deleteById)

@@ -10,7 +10,7 @@ import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import websiteLogo from "./assets/Swapify-logo.png";
 import { Link } from 'react-router-dom';
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard.jsx";
 import CartPage from "./pages/CartPage";
 import { CartProvider } from "./context/CartContext";
 import { useCart } from "./context/CartContext";

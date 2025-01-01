@@ -18,9 +18,34 @@ const ProductDetails = () => {
     );
   }
 
-  const handleAddToCart = () => {
-    alert(`${product.title} has been added to your cart!`);
-  };
+  const [message, setMessage] = React.useState(null);
+
+  const handleAddToCart = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          userId, // Replace with dynamic user ID
+          productId: product._id,
+          quantity: 1,
+      }),
+    });
+
+    if (response.ok) {
+      setMessage({ type: "success", text: `${product.title} has been added to your cart!` });
+      console.log(`${product.title} has been added to your cart!`);
+    } else {
+      setMessage({ type: "error", text: "Failed to add to cart. Please try again." });
+      console.error("Failed to add to cart. Please try again.");
+    }
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    setMessage({ type: "error", text: "Something went wrong. Please try again." });
+  }
+};
+
+  
 
   const handleBuyNow = () => {
       (window.location.href = "/web-chat-app/ChatApp.html")

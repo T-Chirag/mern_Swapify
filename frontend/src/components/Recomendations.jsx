@@ -1,16 +1,35 @@
 import React, { useState, useMemo, useEffect } from "react";
 import ProductCard from "./ProductCard";
-import { ProductArray } from "../assets/data.js";
+// import { ProductArray } from "../assets/data.js";
+import axios from "axios";
 
 function Recommendations() {
-  const [products, setProducts] = useState(ProductArray);
+
+  useEffect(() => {
+    // Fetch products from the backend
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/products/");
+        console.log("response:", response);
+        setProducts(response.data);
+        // console.log("products:", products);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+
+  const [products, setProducts] = useState([]);
 
   const [displayedProducts, setDisplayedProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   // Function to randomly select 8 products
-  const selectRandomProducts = (productList, count) => {
-    const shuffled = productList.sort(() => 0.5 - Math.random());
+  const selectRandomProducts = (products, count) => {
+    const shuffled = products.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
   };
 

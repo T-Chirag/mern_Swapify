@@ -3,11 +3,6 @@ const {Schema}=mongoose
 
 const productSchema= new Schema({
 
-    _id:{
-        type:Number,
-        required:true
-    },
-
     title:{
         type:String,
         required:true
@@ -25,8 +20,7 @@ const productSchema= new Schema({
         
     },
     category:{
-        type:Schema.Types.ObjectId,
-        ref:"Category",
+        type:String,
         required:true
     },
     images:{
@@ -36,7 +30,12 @@ const productSchema= new Schema({
     isDeleted:{
         type:Boolean,
         default:false
-    }
+    },
+    lister:{
+        type:Schema.Types.ObjectId,
+        ref:"User",
+        required:true,
+    },
 },{timestamps:true,versionKey:false})
 
 module.exports=mongoose.model('Product',productSchema)
