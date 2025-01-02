@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {jwtDecode} from "jwt-decode"; // To decode the token and get the user ID
+// import User from "../../../backend/models/User";
 
 const Dashboard = () => {
   const [products, setProducts] = useState([]); // State for products
@@ -16,24 +17,23 @@ const Dashboard = () => {
   const [userId, setUserId] = useState(null); // State for logged-in user ID
 
   useEffect(() => {
-    // Retrieve the token from localStorage
-    const token = localStorage.getItem("token");
-    console.log("token:", token);
-    
-    if (token) {
-      // Decode the token
-      const decodedToken = jwtDecode(token);
-      const loggedUserId = decodedToken._id; // Get user ID from token
-      setUserId(loggedUserId);
-      
-      // Fetch products and categories
-      fetchProducts(loggedUserId);
-      fetchCategories();
-    }else
-    {
+      const UserId = localStorage.getItem("UserId");
+      console.log("Logged User ID:", UserId);
+  
+    if (UserId) {
+      try {
+        setUserId(UserId);
+  
+        fetchProducts(UserId); // Fetch products for the logged-in user
+        // fetchCategories(); // Assuming this is needed
+      } catch (error) {
+        console.error("Error decoding token:", error);
+      }
+    } else {
       console.log("No token found. User might not be logged in.");
     }
   }, []);
+  
 
   const fetchProducts = async (userId) => {
     try {
@@ -45,14 +45,14 @@ const Dashboard = () => {
   };
 
   // Fetch categories for dropdown
-  const fetchCategories = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/categories");
-      setCategories(response.data); // Update categories state
-    } catch (error) {
-      console.error("Error fetching categories:", error);
-    }
-  };
+  // const fetchCategories = async () => {
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/categories");
+  //     setCategories(response.data); // Update categories state
+  //   } catch (error) {
+  //     console.error("Error fetching categories:", error);
+  //   }
+  // };
 
   // Add a new product
   const addProduct = async () => {
@@ -64,9 +64,9 @@ const Dashboard = () => {
       newProduct.images.length > 0
     ) {
       try {
-        const response = await axios.post("http://localhost:8080/product", {
+        const response = await axios.post("http://localhost:8080/products", {
           ...newProduct,
-          lister: userId, // Add logged-in user ID as lister
+           // Add logged-in user ID as lister
         });
         setProducts([...products, response.data]); // Add the new product to the state
         setNewProduct({

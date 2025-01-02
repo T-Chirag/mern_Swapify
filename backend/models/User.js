@@ -4,7 +4,7 @@ const {Schema}=mongoose
 const userSchema=new Schema({
     identity:{
         type:String,
-        required:true
+        
     },
     name:{
         type:String,

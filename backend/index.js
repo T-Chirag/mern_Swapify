@@ -15,7 +15,6 @@ const reviewRoutes=require("./routes/Review")
 
 const { connectToDB } = require("./database/db")
 
-
 // server init
 const server=express()
 

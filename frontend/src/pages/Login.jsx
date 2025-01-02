@@ -43,11 +43,12 @@ function Login() {
           email: formData.email,
           password: formData.password,
         });
-        localStorage.setItem("token", response.data.token); // Save token to localStorage
+        localStorage.setItem("UserId", response.data._id); // Save token to localStorage
         setSuccessMessage("Login successful! Redirecting...");
-        setTimeout(() => {
-          window.location.href = "/";   // Redirect to dashboard
-        }, 2000);
+        console.log("response",response);
+        // setTimeout(() => {
+        //   window.location.href = "/";   // Redirect to dashboard
+        // }, 2000);
       } else {
         // Call signup API
         const response = await axios.post("http://localhost:8080/auth/signup", {

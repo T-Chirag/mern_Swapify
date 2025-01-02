@@ -1,4 +1,10 @@
-Product = require("../models/Product.js");
+const Product = require("../models/Product.js");
+const mongoose = require('mongoose');
+// import cookieparser
+const cookieParser = require('cookie-parser');
+// const verifyToken = re
+
+
 
 // Create a new product
 exports.create = async (req, res) => {
@@ -13,19 +19,23 @@ exports.create = async (req, res) => {
 };
 
 //get all products listed by a lister
+
+
+
+
 exports.getByLister = async (req, res) => {
   try {
-    const { lister } = req.params;
-    const products = await Product.find({ lister });
-    if (!products) {
-      return res.status(404).json({ message: "No products found." });
-    }
+    const { id } = req.params;
+    const products = await Product.find({ lister: id });
     res.status(200).json(products);
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("Error fetching products by lister:", error);
     res.status(500).json({ message: "Error fetching products. Please try again later." });
   }
 };
+
+
+
 
 
     

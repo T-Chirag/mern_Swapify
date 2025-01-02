@@ -70,17 +70,17 @@ exports.getAllCarts = async (req, res) => {
   }
 };
 
-
-// exports.getByUserId = async (req, res) => {
-//     try {
-        
-//         const result = await Cart.findById();
-//         res.status(200).json(result);
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({ message: 'Error fetching cart items, please try again later' });
-//     }
-// };
+// Get cart items by user ID
+exports.getCartsById= async (req, res) => {
+    try {
+        const { id } = req.params;
+        const carts = await Cart.find({ user: id }).populate('product');
+        res.status(200).json(carts);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Error fetching cart items, please try again later' });
+    }
+};
 
 exports.updateById = async (req, res) => {
     try {

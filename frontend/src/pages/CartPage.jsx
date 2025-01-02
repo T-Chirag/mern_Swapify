@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {jwtDecode} from "jwt-decode";
 
 /**
  * CartPage component that displays the user's cart items, allows updating item quantities,
@@ -12,12 +13,16 @@ const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [productIds, setProductIds] = useState([]);
   const navigate = useNavigate();
+
+
+  // Get the user ID from the localStorage
+  const userId = localStorage.getItem("UserId");
   
   // Fetch cart items from the backend
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/cart/get`);
+        const response = await axios.get(`http://localhost:8080/cart/get/${userId}`);
         setProductIds(response.data);
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
@@ -102,14 +107,14 @@ const CartPage = () => {
               </div>
 
               <div className="flex items-center space-x-2">
-                <button
+                {/* <button
                   onClick={() =>
                     updateQuantity(item.productDetails.id, Math.max(item.productQuantity - 1, 1)) // Prevent going below 1
                   }
                   className="bg-gray-300 px-2 py-1 rounded text-black"
                 >
                   -
-                </button>
+                </button> */}
                 <input
                   type="number"
                   value={item.productQuantity}
@@ -118,18 +123,18 @@ const CartPage = () => {
                   }
                   className="w-12 text-center border text-black"
                 />
-                <button
+                {/* <button
                   onClick={() => updateQuantity(item.productDetails.id, item.productQuantity + 1)}
                   className="bg-gray-300 px-2 py-1 rounded text-black"
                 >
                   +
-                </button>
-                <button
+                </button> */}
+                {/* <button
                   onClick={() => removeItem(item.productDetails.id)}
                   className="text-red-500 ml-4"
                 >
                   Remove
-                </button>
+                </button> */}
               </div>
             </div>
           ))}

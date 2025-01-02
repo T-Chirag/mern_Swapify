@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link for routing
 import { useCart } from "../context/CartContext"; // Import useCart
 import "../NavBar.css";
-import Dropdown from "./DropDown";
+import Dropdown from "./DropDown.jsx";
 
 function NavBar() {
   const { cartItems } = useCart(); // Get cartItems from CartContext

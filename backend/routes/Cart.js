@@ -5,6 +5,7 @@ const router=express.Router()
 router
     .post("/add",cartController.create)
     .get("/get",cartController.getAllCarts)
+    .get("/get/:id",cartController.getCartsById)
     .patch("/:id",cartController.updateById)
     .delete("/:id",cartController.deleteById)
     .delete("/user/:id",cartController.deleteByUserId)

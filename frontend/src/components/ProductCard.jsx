@@ -40,7 +40,7 @@ const ProductCard = ({ product }) => {
         <img
           src={product.image_link || "default-image.jpg"}
           alt={product.name || "Unnamed Product"}
-          className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+          className="h-full w-full object-cover transition-transform duration-300 hover:scale-110 shadow-white shadow-2xl"
           onClick={() => handleCardClick(product._id)}
         />
       </div>
@@ -66,12 +66,12 @@ const ProductCard = ({ product }) => {
             Add to Cart
           </button>
 
-          <button
+          {/* <button
             onClick={()=>window.location.href = "/web-chat-app/ChatApp.html"}
             className="bg-blue-600 text-white px-2 py-1 text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
           >
             Chat with lister
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
