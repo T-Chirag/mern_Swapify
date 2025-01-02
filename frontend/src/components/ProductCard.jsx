@@ -1,14 +1,14 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+// import { createRequire } from 'module';
+// const require = createRequire(import.meta.url);
 
 
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-const { getUserID } = require("../../../backend/controllers/Auth.js");  // Import the getUserID function from the auth controller
+// const { getUserID } = require("../../../backend/controllers/Auth.js");  // Import the getUserID function from the auth controller
 
 
-let User_ID = getUserID();
+// let User_ID = getUserID();
 const ProductCard = ({ product }) => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
@@ -17,12 +17,12 @@ const ProductCard = ({ product }) => {
     try {
       const response = await axios.post(
         "http://localhost:8080/cart/add",
-        { user:User_ID , product:productId },
+        { product:productId },
         {
           withCredentials: false,
         }
       );
-      console.log("Response:", response.data);
+      // console.log("Response:", response.data);
       alert("Product added to cart!");
     } catch (error) {
       console.log("Error adding to cart:", error);
@@ -67,7 +67,7 @@ const ProductCard = ({ product }) => {
           </button>
 
           <button
-            onClick={() => navigate("/web-chat-app/ChatApp")}
+            onClick={()=>window.location.href = "/web-chat-app/ChatApp.html"}
             className="bg-blue-600 text-white px-2 py-1 text-sm font-semibold rounded hover:bg-blue-700 transition-colors"
           >
             Chat with lister

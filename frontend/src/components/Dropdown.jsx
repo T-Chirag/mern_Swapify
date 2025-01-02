@@ -63,12 +63,12 @@ function Dropdown() {
       {isOpen && (
         <div className="absolute top-7 -right-50 bg-black text-white rounded shadow-lg w-96 z-50">
           <div className="bg-black h-7 w-full"></div>
-          <Link
+          {/* <Link
             to="/dashboard"
             className="block px-4 py-2 text-white/80 hover:bg-gray-100 hover:text-gray-700"
           >
             Dashboard
-          </Link>
+          </Link> */}
           {isLoggedIn === "1" ? (
             <Link
               to="/logout"

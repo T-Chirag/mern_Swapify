@@ -9,13 +9,13 @@ const Product = require('../models/Product'); // Product model (assuming it's re
 exports.create = async (req, res) => {
   try {
     // Step 1: Retrieve userId from the request body
-    const userId = req.body.user;
-    console.log(userId);
+    // const userId = req.body.user;
+    // console.log(userId);
 
     // Step 2: Ensure the userId is available
-    if (!userId) {
-      return res.status(400).json({ message: "User ID is required." });
-    }
+    // if (!userId) {
+    //   return res.status(400).json({ message: "User ID is required." });
+    // }
 
     // Step 3: Check if the product exists
     const product = await Product.findById(req.body.product);
@@ -24,7 +24,7 @@ exports.create = async (req, res) => {
     }
 
     // Step 4: Check if the product is already in the user's cart
-    const existingCartItem = await Cart.findOne({ user: userId, product: req.body.product });
+    const existingCartItem = await Cart.findOne({ product: req.body.product });
     if (existingCartItem) {
       // If the item is already in the cart, increase the quantity
       existingCartItem.quantity += req.body.quantity || 1; // Default to 1 if no quantity provided
@@ -34,7 +34,7 @@ exports.create = async (req, res) => {
 
     // Step 5: Create a new cart item and associate it with the userId
     const cartItem = new Cart({
-      user: userId, // Associate the cart with the userId
+      // user: userId, // Associate the cart with the userId
       product: req.body.product, // Product ID from request body
       quantity: req.body.quantity || 1, // Quantity from request body (defaults to 1)
     });
@@ -53,18 +53,34 @@ exports.create = async (req, res) => {
   }
 };
 
+exports.getAllCarts = async (req, res) => {
+  try {
+      // Fetch all cart items from the database
+      const carts = await Cart.find();
+      
+      // Send the response with the cart data
+      return res.status(200).json(carts);
+  } catch (error) {
+      console.error('Error fetching cart items:', error);
 
-
-exports.getByUserId = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await Cart.find({ user: id }).populate('product');
-        res.status(200).json(result);
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({ message: 'Error fetching cart items, please try again later' });
-    }
+      // Send a server error response
+      return res.status(500).json({
+          message: 'Error fetching cart items, please try again later',
+      });
+  }
 };
+
+
+// exports.getByUserId = async (req, res) => {
+//     try {
+        
+//         const result = await Cart.findById();
+//         res.status(200).json(result);
+//     } catch (error) {
+//         console.log(error);
+//         return res.status(500).json({ message: 'Error fetching cart items, please try again later' });
+//     }
+// };
 
 exports.updateById = async (req, res) => {
     try {
