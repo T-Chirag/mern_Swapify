@@ -16,14 +16,20 @@ const CartPage = () => {
 
 
   // Get the user ID from the localStorage
-  const userId = localStorage.getItem("UserId");
+  const userId = localStorage.getItem("User_id");
+  console.log("User id in Cartpage "+userId);
   
   // Fetch cart items from the backend
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const response = await axios.get(`http://localhost:8080/cart/get/${userId}`);
-        setProductIds(response.data);
+        console.log("Response cart page is:", JSON.stringify(response.data));
+        const product_id = response.data.map((cartItem) => ({
+          product: cartItem.product._id, // Get the product ID
+          quantity: cartItem.quantity,  // Get the quantity
+        }));
+        setProductIds(product_id);
       } catch (error) {
         console.error("Failed to fetch cart items:", error);
       }
@@ -123,18 +129,7 @@ const CartPage = () => {
                   }
                   className="w-12 text-center border text-black"
                 />
-                {/* <button
-                  onClick={() => updateQuantity(item.productDetails.id, item.productQuantity + 1)}
-                  className="bg-gray-300 px-2 py-1 rounded text-black"
-                >
-                  +
-                </button> */}
-                {/* <button
-                  onClick={() => removeItem(item.productDetails.id)}
-                  className="text-red-500 ml-4"
-                >
-                  Remove
-                </button> */}
+                
               </div>
             </div>
           ))}

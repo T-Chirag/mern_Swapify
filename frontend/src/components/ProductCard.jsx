@@ -11,18 +11,23 @@ import axios from "axios";
 // let User_ID = getUserID();
 const ProductCard = ({ product }) => {
   const navigate = useNavigate(); // Initialize the useNavigate hook
+  const User_id = localStorage.getItem("User_id");
 
   // Add product to cart
   const addToCart = async (productId) => {
     try {
+      console.log(User_id);
+      console.log(productId);
+      
       const response = await axios.post(
         "http://localhost:8080/cart/add",
-        { product:productId },
+        { product:productId,
+          user:User_id },
         {
           withCredentials: false,
         }
       );
-      // console.log("Response:", response.data);
+      console.log("Response:", response.data);
       alert("Product added to cart!");
     } catch (error) {
       console.log("Error adding to cart:", error);

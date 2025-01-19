@@ -1,5 +1,5 @@
-import React, { useState ,useEffect } from "react";
-import {useLocation} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "../index.css";
 import GoogleLoginButton from "../components/GoogleLoginButton.jsx";
@@ -7,13 +7,16 @@ import { Link } from "react-router-dom";
 
 function Login() {
   const [activeButton, setActiveButton] = useState("");
-  const [formData, setFormData] = useState({ email: "", password: "", username: "" });
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    username: "",
+  });
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const location = useLocation();
 
-
-    // Check the pathname of the current URL and set the activeButton state
+  // Check the pathname of the current URL and set the activeButton state
   useEffect(() => {
     // Check the pathname of the current URL and set the activeButton state
     if (location.pathname === "/login") {
@@ -22,7 +25,6 @@ function Login() {
       setActiveButton("signup");
     }
   }, [location]);
-
 
   // Handle input changes
   const handleInputChange = (e) => {
@@ -43,9 +45,9 @@ function Login() {
           email: formData.email,
           password: formData.password,
         });
-        localStorage.setItem("UserId", response.data._id); // Save token to localStorage
+        localStorage.setItem("User_id", response.data._id); // Save token to localStorage
         setSuccessMessage("Login successful! Redirecting...");
-        console.log("response",response);
+        console.log("response", response);
         // setTimeout(() => {
         //   window.location.href = "/";   // Redirect to dashboard
         // }, 2000);
@@ -60,7 +62,11 @@ function Login() {
         setActiveButton("login"); // Switch to login after signup
       }
     } catch (error) {
-      setError(error.response ? error.response.data.message : "Something went wrong. Please try again.");
+      setError(
+        error.response
+          ? error.response.data.message
+          : "Something went wrong. Please try again."
+      );
     }
   };
 
@@ -168,7 +174,6 @@ function Login() {
                   required
                 />
               </div>
-
 
               <div className="mb-4">
                 <label className="block mb-1 text-gray-700">Email</label>

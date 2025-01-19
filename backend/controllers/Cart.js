@@ -5,6 +5,7 @@ const Cart = require('../models/Cart.js');
 const jwt = require('jsonwebtoken'); // If you're using jwt-decode or the jwt library for server-side
 
 const Product = require('../models/Product'); // Product model (assuming it's required to check product existence)
+const User = require('../models/User');
 
 exports.create = async (req, res) => {
   try {
@@ -19,6 +20,8 @@ exports.create = async (req, res) => {
 
     // Step 3: Check if the product exists
     const product = await Product.findById(req.body.product);
+    const User_id = await User.findById(req.body.user);
+    console.log("User_id getting in backend "+User_id);
     if (!product) {
       return res.status(404).json({ message: "Product not found." });
     }
@@ -34,7 +37,7 @@ exports.create = async (req, res) => {
 
     // Step 5: Create a new cart item and associate it with the userId
     const cartItem = new Cart({
-      // user: userId, // Associate the cart with the userId
+      user: User_id, // Associate the cart with the userId
       product: req.body.product, // Product ID from request body
       quantity: req.body.quantity || 1, // Quantity from request body (defaults to 1)
     });
@@ -74,7 +77,9 @@ exports.getAllCarts = async (req, res) => {
 exports.getCartsById= async (req, res) => {
     try {
         const { id } = req.params;
+        console.log("id in Cart controller "+id)
         const carts = await Cart.find({ user: id }).populate('product');
+        console.log("carts object"+carts);
         res.status(200).json(carts);
     } catch (error) {
         console.log(error);

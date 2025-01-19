@@ -5,13 +5,8 @@ const morgan=require("morgan")
 const cookieParser=require("cookie-parser")
 const authRoutes=require("./routes/Auth")
 const productRoutes=require("./routes/Product")
-const orderRoutes=require("./routes/Order")
 const cartRoutes=require("./routes/Cart")
-
-const categoryRoutes=require("./routes/Category")
 const userRoutes=require("./routes/User")
-const addressRoutes=require('./routes/Address')
-const reviewRoutes=require("./routes/Review")
 
 const { connectToDB } = require("./database/db")
 
@@ -32,12 +27,12 @@ server.use(morgan("tiny"))
 server.use("/auth",authRoutes)
 server.use("/users",userRoutes)
 server.use("/products",productRoutes)
-server.use("/orders",orderRoutes)
+// server.use("/orders",orderRoutes)
 server.use("/cart",cartRoutes)
 
-server.use("/categories",categoryRoutes)
-server.use("/address",addressRoutes)
-server.use("/reviews",reviewRoutes)
+// server.use("/categories",categoryRoutes)
+// server.use("/address",addressRoutes)
+// server.use("/reviews",reviewRoutes)
 
 
 

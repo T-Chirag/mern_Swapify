@@ -1,13 +1,8 @@
 const User = require("../models/User");
 const bcrypt=require('bcryptjs');
-const { sendMail } = require("../utils/Emails");
-const { generateOTP } = require("../utils/GenerateOtp");
-const Otp = require("../models/OTP");
+
 const { sanitizeUser } = require("../utils/SanitizeUser");
 const { generateToken } = require("../utils/GenerateToken");
-const PasswordResetToken = require("../models/PasswordResetToken");
-// const { User_ID } = require("../database/user_id");
-// const Userobj = require("../database/user_id.js")
 
 let User_ID = null; // Initialize as null or some default value
 
@@ -85,8 +80,9 @@ exports.login=async(req,res)=>{
             // generating jwt token
             const token=generateToken(secureInfo)
 
-            // // Store the token in localStorage
-            // localStorage.setItem('token', token); // Replace `response.data.token` with your actual token
+             // Replace `response.data.token` with your actual token
+            const User_id = existingUser._id;
+            // localStorage.setItem('User_id',User_id);
 
             // sending jwt token in the response cookies
             res.cookie('token',token,{
